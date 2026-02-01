@@ -1,0 +1,25 @@
+{
+    "name": "OneWire2",
+    "version": "2.3.8",
+    "description": "OneWire library modified for Makita battery communication",
+    "keywords": "onewire, 1-wire, bus, makita",
+    "authors": [
+        {
+            "name": "Jim Studt"
+        },
+        {
+            "name": "Paul Stoffregen",
+            "email": "paul@pjrc.com"
+        },
+        {
+            "name": "Martin Jansson",
+            "maintainer": true
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mnh-jansson/open-battery-information"
+    },
+    "frameworks": "arduino",
+    "platforms": "*"
+}

@@ -1,0 +1,25 @@
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+
+# VSCode
+.vscode/
+
+# Build artifacts
+*.o
+*.a
+*.elf
+*.hex
+*.bin
+
+# OS files
+.DS_Store
+Thumbs.db
+nul
+
+# Claude settings
+.claude/
+
+# Reference projects (external repos)
+references/
