@@ -89,6 +89,37 @@ pio device monitor
 
 The Arduino IDE version is a single-file sketch with all code combined, including the modified OneWire library with Makita-specific timings.
 
+### Option 3: Pre-compiled Firmware (No Build Required)
+
+If you don't want to compile the code yourself, use the pre-compiled `.hex` file from the `firmware/` folder:
+
+**Using Arduino IDE (avrdude):**
+
+1. Find your Arduino IDE's avrdude location:
+   - Windows: `C:\Program Files (x86)\Arduino\hardware\tools\avr\bin\avrdude.exe`
+   - macOS: `/Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avrdude`
+   - Linux: `/usr/share/arduino/hardware/tools/avr/bin/avrdude`
+
+2. Find avrdude.conf in the same folder
+
+3. Upload via command line (replace COM3 with your port):
+
+```bash
+# Windows
+avrdude -C "C:\Program Files (x86)\Arduino\hardware\tools\avr\etc\avrdude.conf" -v -p atmega328p -c arduino -P COM3 -b 115200 -D -U flash:w:firmware\makita_battery_nano328.hex:i
+
+# Linux/macOS
+avrdude -C /usr/share/arduino/hardware/tools/avr/etc/avrdude.conf -v -p atmega328p -c arduino -P /dev/ttyUSB0 -b 115200 -D -U flash:w:firmware/makita_battery_nano328.hex:i
+```
+
+**Using avrdude directly (if installed separately):**
+
+```bash
+avrdude -p atmega328p -c arduino -P COM3 -b 115200 -D -U flash:w:firmware/makita_battery_nano328.hex:i
+```
+
+**Note for old bootloader:** If upload fails, try `-b 57600` instead of `-b 115200`.
+
 ## Usage
 
 ### Serial Menu Commands
@@ -373,6 +404,8 @@ MakitaBatterySerial/
 │   └── makita_unlock.h/cpp # Reset and unlock functions
 ├── lib/
 │   └── OneWire/            # Modified OneWire library with Makita timings
+├── firmware/
+│   └── makita_battery_nano328.hex  # Pre-compiled firmware
 └── arduino/
     └── MakitaBatteryDiagnostic/
         └── MakitaBatteryDiagnostic.ino  # Single-file Arduino IDE version

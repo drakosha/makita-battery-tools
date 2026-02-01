@@ -89,6 +89,28 @@ pio device monitor
 
 Версия для Arduino IDE — это единый файл скетча со всем кодом, включая модифицированную библиотеку OneWire с таймингами Makita.
 
+### Вариант 3: Готовая прошивка (без компиляции)
+
+Если вы не хотите компилировать код самостоятельно, используйте готовый `.hex` файл из папки `firmware/`:
+
+**Через avrdude (командная строка):**
+
+1. Найдите avrdude из Arduino IDE:
+   - Windows: `C:\Program Files (x86)\Arduino\hardware\tools\avr\bin\avrdude.exe`
+   - Linux: `/usr/share/arduino/hardware/tools/avr/bin/avrdude`
+
+2. Загрузите прошивку (замените COM3 на ваш порт):
+
+```bash
+# Windows
+avrdude -C "C:\Program Files (x86)\Arduino\hardware\tools\avr\etc\avrdude.conf" -v -p atmega328p -c arduino -P COM3 -b 115200 -D -U flash:w:firmware\makita_battery_nano328.hex:i
+
+# Linux
+avrdude -p atmega328p -c arduino -P /dev/ttyUSB0 -b 115200 -D -U flash:w:firmware/makita_battery_nano328.hex:i
+```
+
+**Примечание**: Если загрузка не работает, попробуйте `-b 57600` вместо `-b 115200` (старый загрузчик).
+
 ## Использование
 
 ### Команды серийного меню
@@ -373,6 +395,8 @@ MakitaBatterySerial/
 │   └── makita_unlock.h/cpp # Функции сброса и разблокировки
 ├── lib/
 │   └── OneWire/            # Модифицированная библиотека OneWire с таймингами Makita
+├── firmware/
+│   └── makita_battery_nano328.hex  # Готовая прошивка
 └── arduino/
     └── MakitaBatteryDiagnostic/
         └── MakitaBatteryDiagnostic.ino  # Версия для Arduino IDE (один файл)

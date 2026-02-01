@@ -1212,17 +1212,31 @@ void loop() {
 
       case '4':
         Serial.println(F("\nTurning LEDs ON..."));
-        testmode_cmd();
-        leds_on_cmd();
-        Serial.println(F("Done."));
+        if (is_f0513()) {
+          Serial.println(F("ERROR: F0513 chip - LED control not supported"));
+        } else {
+          testmode_cmd();
+          delay(100);
+          makita.reset();
+          delay(50);
+          leds_on_cmd();
+          Serial.println(F("Done."));
+        }
         printMenu();
         break;
 
       case '5':
         Serial.println(F("\nTurning LEDs OFF..."));
-        testmode_cmd();
-        leds_off_cmd();
-        Serial.println(F("Done."));
+        if (is_f0513()) {
+          Serial.println(F("ERROR: F0513 chip - LED control not supported"));
+        } else {
+          testmode_cmd();
+          delay(100);
+          makita.reset();
+          delay(50);
+          leds_off_cmd();
+          Serial.println(F("Done."));
+        }
         printMenu();
         break;
 
