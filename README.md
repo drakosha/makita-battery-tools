@@ -60,7 +60,9 @@ Pin 5: GND (or NTC on some models)
 Pin 6: V+ (Battery positive)
 ```
 
-## Installation (PlatformIO)
+## Installation
+
+### Option 1: PlatformIO (Recommended)
 
 ```bash
 # Clone or download this project
@@ -76,7 +78,16 @@ pio run --target upload
 pio device monitor
 ```
 
-**Note**: This is a PlatformIO project with multiple source files. Arduino IDE is not supported.
+### Option 2: Arduino IDE
+
+1. Open `arduino/MakitaBatteryDiagnostic/MakitaBatteryDiagnostic.ino` in Arduino IDE
+2. Select **Tools → Board → Arduino Nano**
+3. Select **Tools → Processor → ATmega328P** (or "Old Bootloader" if upload fails)
+4. Select your COM port in **Tools → Port**
+5. Click **Upload**
+6. Open **Tools → Serial Monitor** at 9600 baud
+
+The Arduino IDE version is a single-file sketch with all code combined, including the modified OneWire library with Makita-specific timings.
 
 ## Usage
 
@@ -349,10 +360,10 @@ Formula: `min(sum_of_nybbles, 0xFF) & 0x0F`
 ```
 MakitaBatterySerial/
 ├── platformio.ini          # PlatformIO configuration
-├── README.md               # This file
+├── README.md               # This file (English)
 ├── README_RU.md            # Russian documentation
 ├── CLAUDE.md               # AI assistant context
-├── src/
+├── src/                    # PlatformIO source files
 │   ├── main.cpp            # Main program and serial menu
 │   ├── config.h            # Pin definitions and shared data
 │   ├── makita_comm.h/cpp   # Low-level communication
@@ -360,8 +371,11 @@ MakitaBatterySerial/
 │   ├── makita_data.h/cpp   # Data parsing and calculations
 │   ├── makita_print.h/cpp  # Output formatting
 │   └── makita_unlock.h/cpp # Reset and unlock functions
-└── lib/
-    └── OneWire/            # Modified OneWire library with Makita timings
+├── lib/
+│   └── OneWire/            # Modified OneWire library with Makita timings
+└── arduino/
+    └── MakitaBatteryDiagnostic/
+        └── MakitaBatteryDiagnostic.ino  # Single-file Arduino IDE version
 ```
 
 ## Memory Usage

@@ -60,7 +60,9 @@ GND ────────────────────── GND
 Пин 6: V+ (Плюс аккумулятора)
 ```
 
-## Установка (PlatformIO)
+## Установка
+
+### Вариант 1: PlatformIO (Рекомендуется)
 
 ```bash
 # Клонируйте или скачайте проект
@@ -76,7 +78,16 @@ pio run --target upload
 pio device monitor
 ```
 
-**Примечание**: Это проект PlatformIO с множеством исходных файлов. Arduino IDE не поддерживается.
+### Вариант 2: Arduino IDE
+
+1. Откройте `arduino/MakitaBatteryDiagnostic/MakitaBatteryDiagnostic.ino` в Arduino IDE
+2. Выберите **Инструменты → Плата → Arduino Nano**
+3. Выберите **Инструменты → Процессор → ATmega328P** (или "Old Bootloader" если загрузка не работает)
+4. Выберите COM-порт в **Инструменты → Порт**
+5. Нажмите **Загрузка**
+6. Откройте **Инструменты → Монитор порта** на скорости 9600 бод
+
+Версия для Arduino IDE — это единый файл скетча со всем кодом, включая модифицированную библиотеку OneWire с таймингами Makita.
 
 ## Использование
 
@@ -352,7 +363,7 @@ MakitaBatterySerial/
 ├── README.md               # Документация (английский)
 ├── README_RU.md            # Документация (русский)
 ├── CLAUDE.md               # Контекст для AI-ассистента
-├── src/
+├── src/                    # Исходники PlatformIO
 │   ├── main.cpp            # Главная программа и серийное меню
 │   ├── config.h            # Определения пинов и общие данные
 │   ├── makita_comm.h/cpp   # Низкоуровневая коммуникация
@@ -360,8 +371,11 @@ MakitaBatterySerial/
 │   ├── makita_data.h/cpp   # Парсинг данных и вычисления
 │   ├── makita_print.h/cpp  # Форматирование вывода
 │   └── makita_unlock.h/cpp # Функции сброса и разблокировки
-└── lib/
-    └── OneWire/            # Модифицированная библиотека OneWire с таймингами Makita
+├── lib/
+│   └── OneWire/            # Модифицированная библиотека OneWire с таймингами Makita
+└── arduino/
+    └── MakitaBatteryDiagnostic/
+        └── MakitaBatteryDiagnostic.ino  # Версия для Arduino IDE (один файл)
 ```
 
 ## Использование памяти
